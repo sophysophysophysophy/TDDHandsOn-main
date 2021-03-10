@@ -5,6 +5,7 @@ namespace Variance
 {
     class Program
     {
+        // 도메인 지식 전달이 없을 때 프로그래머가 어떤 버그를 양산시킬 수 있는지. 도메인 지식 바탕 코딩의 중요성
         static void Main(string[] args) => Console.WriteLine(args.Length switch
         {
             0 => "입력된 데이터가 없습니다.",
