@@ -1,3 +1,4 @@
+// 중복된 문자 줄여주는 함수 
 function refineText(source, options) {
   return [
     normalizeWhitespaces,

@@ -1,5 +1,5 @@
 const faker = require("faker");
-const sut = require("./index");
+const sut = require("./index"); // system under test (테스트 대상 시스템)
 
 test.each`
   source                 | expected
