@@ -24,6 +24,7 @@ public class AppModel_specs {
         AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         boolean actual = sut.isCompleted();
         assertFalse(actual);
+//        assertTrue(actual);
     }
 
     @Test
@@ -57,8 +58,8 @@ public class AppModel_specs {
                 + NEW_LINE + "Enter your guess: ");
     }
 
-    @ParameterizedTest
-    @CsvSource({ "50, 40", "30, 29", "89, 9" })
+    @ParameterizedTest      // junit5 : test method 단위로 parameter test 가능해짐 ( junit jupiter params dependency 추가 )
+    @CsvSource({ "50, 40", "30, 29", "89, 9" })         // param list ( case별 tes 가능)  cf) ValueSource ( 1개의 param case)
     void sut_correctly_prints_too_low_message_in_single_player_game(int answer, int guess) {
         AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
         sut.processInput("1");
