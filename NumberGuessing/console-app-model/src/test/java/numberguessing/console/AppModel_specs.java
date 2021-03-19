@@ -21,14 +21,14 @@ public class AppModel_specs {
 
     @Test
     void sut_is_incompleted_when_it_is_initialized() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         boolean actual = sut.isCompleted();
         assertFalse(actual);
     }
 
     @Test
     void sut_correctly_prints_select_mode_message() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         String actual = sut.flushOutput();
 
         assertThat(actual).isEqualTo("1: Single player game" + NEW_LINE + "2: Multiplayer game" + NEW_LINE + "3: Exit"
@@ -37,7 +37,7 @@ public class AppModel_specs {
 
     @Test
     void sut_correctly_exits() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
 
         sut.processInput("3");
 
@@ -47,7 +47,7 @@ public class AppModel_specs {
 
     @Test
     void sut_correctly_prints_single_player_game_start_message() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.flushOutput();
         sut.processInput("1");
 
@@ -60,7 +60,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "50, 40", "30, 29", "89, 9" })
     void sut_correctly_prints_too_low_message_in_single_player_game(int answer, int guess) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
         sut.processInput("1");
         sut.flushOutput();
         sut.processInput(Integer.toString(guess));
@@ -73,7 +73,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "50, 60", "80, 81" })
     void sut_correctly_prints_too_high_message_in_single_player_game(int answer, int guess) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
         sut.processInput("1");
         sut.flushOutput();
         sut.processInput(Integer.toString(guess));
@@ -86,7 +86,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @ValueSource(ints = { 1, 3, 10, 100 })
     void sut_correctly_prints_correct_message_in_single_player_game(int answer) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
         sut.processInput("1");
         sut.flushOutput();
         int guess = answer;
@@ -100,7 +100,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @ValueSource(ints = { 1, 10, 100 })
     void sut_correctly_prints_guess_count_if_single_player_game_finished(int fails) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("1");
         for (int i = 0; i < fails; i++)
             sut.processInput("30");
@@ -114,7 +114,7 @@ public class AppModel_specs {
 
     @Test
     void sut_correctly_prints_one_guess_if_single_player_game_finished() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("1");
         sut.flushOutput();
         sut.processInput("50");
@@ -126,7 +126,7 @@ public class AppModel_specs {
 
     @Test
     void sut_prints_select_mode_message_if_single_player_game_finished() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("1");
         sut.flushOutput();
         sut.processInput("50");
@@ -139,7 +139,7 @@ public class AppModel_specs {
 
     @Test
     void sut_returns_to_mode_selection_if_single_player_game_finished() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
 
         sut.processInput("1");
         sut.processInput("50");
@@ -153,7 +153,7 @@ public class AppModel_specs {
     @ValueSource(strings = "1, 10, 100")
     void sut_generates_answer_for_each_game(String source) {
         int[] answers = Stream.of(source.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(answers));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answers));
         for (int answer : answers) {
             sut.processInput("1");
             sut.flushOutput();
@@ -167,7 +167,7 @@ public class AppModel_specs {
 
     @Test
     void sut_correctly_prints_multiplayer_game_setup_message() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.flushOutput();
         sut.processInput("2");
 
@@ -178,7 +178,7 @@ public class AppModel_specs {
 
     @Test
     void sut_correctly_prints_multiplayer_game_start_message() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("2");
         sut.flushOutput();
         sut.processInput("Foo, Bar");
@@ -191,7 +191,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "Foo, Bar, Baz", "Bar, Baz, Foo", "Baz, Foo, Bar" })
     void sut_correctly_prompts_first_player_name(String player1, String player2, String player3) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("2");
         sut.flushOutput();
         sut.processInput(String.join(", ", player1, player2, player3));
@@ -204,7 +204,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "Foo, Bar, Baz", "Bar, Baz, Foo", "Baz, Foo, Bar" })
     void sut_correctly_prompts_second_player_name(String player1, String player2, String player3) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("2");
         sut.processInput(String.join(", ", player1, player2, player3));
         sut.flushOutput();
@@ -218,7 +218,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "Foo, Bar, Baz", "Bar, Baz, Foo", "Baz, Foo, Bar" })
     void sut_correctly_prompts_third_player_name(String player1, String player2, String player3) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("2");
         sut.processInput(String.join(", ", player1, player2, player3));
         sut.processInput("90");
@@ -233,7 +233,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "Foo, Bar, Baz", "Bar, Baz, Foo", "Baz, Foo, Bar" })
     void sut_correctly_rounds_players(String player1, String player2, String player3) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("2");
         sut.processInput(String.join(", ", player1, player2, player3));
         sut.processInput("10");
@@ -249,7 +249,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "50, 40, 1, Foo", "30, 29, 2, Bar" })
     void sut_correctly_prints_too_low_message_in_multiplayer_game(int answer, int guess, int fails, String lastPlayer) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
         sut.processInput("2");
         sut.processInput("Foo, Bar, Baz");
         for (int i = 0; i < fails - 1; i++)
@@ -266,7 +266,7 @@ public class AppModel_specs {
     @CsvSource({ "50, 60, 1, Foo", "9, 81, 2, Bar" })
     void sut_correctly_prints_too_high_message_in_multiplayer_game(int answer, int guess, int fails,
             String lastPlayer) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
         sut.processInput("2");
         sut.processInput("Foo, Bar, Baz");
         for (int i = 0; i < fails - 1; i++)
@@ -282,7 +282,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @ValueSource(ints = { 1, 10, 100 })
     void sut_correctly_prints_correct_message_in_multiplayer_game(int answer) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(answer));
         sut.processInput("2");
         sut.processInput("Foo, Bar, Baz");
         sut.flushOutput();
@@ -297,7 +297,7 @@ public class AppModel_specs {
     @ParameterizedTest
     @CsvSource({ "0, Foo", "1, Bar", "2, Baz", "99, Foo", "100, Bar" })
     void sut_correctly_prints_winner_if_multiplayer_game_finished(int fails, String winner) {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("2");
         sut.processInput("Foo, Bar, Baz");
         for (int i = 0; i < fails; i++)
@@ -312,7 +312,7 @@ public class AppModel_specs {
 
     @Test
     void sut_prints_select_mode_message_if_multiplayer_game_finished() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.processInput("2");
         sut.processInput("Foo, Bar, Baz");
         sut.flushOutput();
@@ -326,7 +326,7 @@ public class AppModel_specs {
 
     @Test
     void sut_returns_to_mode_selection_if_multiplayer_game_finished() {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
 
         sut.processInput("2");
         sut.processInput("Foo, Bar, Baz");
@@ -342,12 +342,12 @@ public class AppModel_specs {
     @ParameterizedTest
     @ValueSource(strings = { "foo" })
     void print_appends_string_to_output_buffer(String s) throws Exception {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.flushOutput();
 
         Whitebox.invokeMethod(sut, "print", s);
 
-        var output = (StringBuffer) Whitebox.getField(AppModel.class, "outputBuffer").get(sut);
+        StringBuffer output = (StringBuffer) Whitebox.getField(AppModel.class, "outputBuffer").get(sut);
         String actual = output.toString();
         assertThat(actual).isEqualTo(s);
     }
@@ -356,12 +356,12 @@ public class AppModel_specs {
     @ParameterizedTest
     @ValueSource(strings = { "foo" })
     void println_appends_string_with_line_separator_to_output_buffer(String s) throws Exception {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.flushOutput();
 
         Whitebox.invokeMethod(sut, "println", s);
 
-        var output = (StringBuffer) Whitebox.getField(AppModel.class, "outputBuffer").get(sut);
+        StringBuffer output = (StringBuffer) Whitebox.getField(AppModel.class, "outputBuffer").get(sut);
         String actual = output.toString();
         assertThat(actual).isEqualTo(s + System.lineSeparator());
     }
@@ -369,12 +369,12 @@ public class AppModel_specs {
     @Disabled
     @Test
     void printLines_correctly_joins_lines() throws Exception {
-        var sut = new AppModel(new PositiveIntegerGeneratorStub(50));
+        AppModel sut = new AppModel(new PositiveIntegerGeneratorStub(50));
         sut.flushOutput();
 
         Whitebox.invokeMethod(sut, "printLines", "foo", "bar");
 
-        var output = (StringBuffer) Whitebox.getField(AppModel.class, "outputBuffer").get(sut);
+        StringBuffer output = (StringBuffer) Whitebox.getField(AppModel.class, "outputBuffer").get(sut);
         String actual = output.toString();
         assertThat(actual).isEqualTo(String.join(NEW_LINE, "foo", "bar"));
     }
