@@ -24,6 +24,8 @@ public final class AppModel {
         processor = this::processSelection;
     }
 
+
+//    외부 메소드 (public)
     public boolean isCompleted() {
         return completed;
     }
@@ -36,6 +38,7 @@ public final class AppModel {
         processor = processor.run(input);
     }
 
+//    내부 메소드 ( private)
     private Processor processSelection(String input) {
         if (input.startsWith("1")) {
             int answer = generator.generateLessThanOrEqualToHundread();
