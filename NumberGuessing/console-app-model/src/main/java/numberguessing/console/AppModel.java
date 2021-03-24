@@ -8,6 +8,7 @@ public final class AppModel {
     private static final String selectModeMessage = String.join(System.lineSeparator(), "1: Single player game",
             "2: Multiplayer game", "3: Exit", "Enter selection: ");
 
+//        functional interface
     private interface Processor {
         Processor run(String input);
     }
@@ -54,12 +55,24 @@ public final class AppModel {
     }
 
     private Processor getPlayerNamesProcessor() {
+//        functional interface : return이 run 메소드 ( lambda )
         return input -> {
             Object[] players = Arrays.stream(input.split(",")).map(String::trim).toArray();
             int answer = generator.generateLessThanOrEqualToHundread();
             printLines("I'm thinking of a number between 1 and 100.", "Enter " + players[0] + "'s guess: ");
             return getMultiplayerGameProcessor(players, answer, 1);
         };
+
+//        before java 11 version (익명 클래스 구현하여 리턴)
+//        return new Processor() {
+//            @Override
+//            public Processor run(String input) {
+//                Object[] players = Arrays.stream(input.split(",")).map(String::trim).toArray();
+//                int answer = generator.generateLessThanOrEqualToHundread();
+//                printLines("I'm thinking of a number between 1 and 100.", "Enter " + players[0] + "'s guess: ");
+//                return getMultiplayerGameProcessor(players, answer, 1);
+//            }
+//        };
     }
 
     private Processor getMultiplayerGameProcessor(Object[] players, int answer, int tries) {
